@@ -8,6 +8,14 @@ Chip 8 was a virtual interpreter that was developed in the mid 1970's by Joseph 
 
 ![Alt text](/images/IBM_Chip_8_Screenshot.png?raw=true "IBM Logo")
 
+## TODO
+
+- [X] Implement all 34 opcodes
+- [X] Draw graphics to an SDL window
+- [ ] Implement Sound
+- [ ] Add CLI interface to load roms and customize the settings
+- [ ] Add visual debugger to view registers, memory, and debug both the emulator and rom
+
 ## Credits
 
 ### ROMS
