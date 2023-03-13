@@ -2,11 +2,11 @@
 #include <cstdint>
 #include <iostream>
 
+#include "Common.h"
+
 const unsigned int ROM_START_ADDRESS = 0x200;
 const unsigned int FONTSET_START_ADDRESS = 0x50;
 
-const unsigned int DISPLAY_HEIGHT = 64;
-const unsigned int DISPLAY_WIDTH = 32;
 const unsigned int FONTSET_SIZE = 80;
 
 const uint8_t fontset[FONTSET_SIZE] = 
@@ -37,7 +37,7 @@ public:
 	uint16_t pc;
 	uint8_t sp;
 
-	uint32_t display[DISPLAY_HEIGHT * DISPLAY_WIDTH] = {};
+	uint32_t display[SCREEN_SIZE] = {};
 	uint8_t keyboard[16] = {};
 
 	uint8_t delayTimer;
