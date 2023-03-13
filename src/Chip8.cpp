@@ -87,28 +87,23 @@ void Chip8::Initialize()
 void Chip8::LoadRom(std::string path)
 {
     std::cout << "Loading ROM\n";
+    std::ifstream rom(path, std::ios::binary | std::ios::ate);
 
-    std::streampos romSize;
-	std::ifstream rom; 
-	std::vector<unsigned char> romBytes;
+	if (!rom.is_open()) { std::cout << "Failed to load ROM from disk\n"; exit(EXIT_FAILURE); }
 
-    rom.open(path, std::ios::binary);
+    std::streampos romSize = rom.tellg();
+    char* buffer = new char[romSize];
 
-	if(rom.is_open() == false) { std::cout << "Failed to read ROM\n"; exit(EXIT_FAILURE); }
-
-	rom.seekg(0, std::ios::end);
-    romSize = rom.tellg();
     rom.seekg(0, std::ios::beg);
+    rom.read(buffer, romSize);
+    rom.close();
 
-	romBytes.resize(static_cast<int>(romSize) + 0x200);
-	rom.read((char*)&romBytes[0] + 0x200, romSize);
-	rom.close();
-
-    for(int i = 0; i < static_cast<int>(romSize); i++)
+    for (long i = 0; i < romSize; ++i)
     {
-        memory[ROM_START_ADDRESS + i] = romBytes[i];
+        memory[ROM_START_ADDRESS + i] = buffer[i];
     }
-    return;
+
+    delete[] buffer;
 } 
 void Chip8::Cycle()
 {
@@ -119,8 +114,6 @@ void Chip8::Cycle()
 
 	if (delayTimer > 0) { --delayTimer; }
     if (soundTimer > 0) { --soundTimer; }
-
-    std::cout << "CHIP-8 emulating cycle\n";
 }
 
 void Chip8::OPC_00E0()
@@ -152,7 +145,7 @@ void Chip8::OPC_2nnn()
 void Chip8::OPC_3xkk()
 {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t byte = opcode & 0x0F00u;
+    uint8_t byte = opcode & 0x00FFu;
 
     if(registers[Vx] == byte)
     {
@@ -163,7 +156,7 @@ void Chip8::OPC_3xkk()
 void Chip8::OPC_4xkk()
 {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t byte = opcode & 0x0F00u;
+    uint8_t byte = opcode & 0x00FFu;
 
     if(registers[Vx] != byte)
     {
@@ -185,7 +178,7 @@ void Chip8::OPC_5xy0()
 void Chip8::OPC_6xkk()
 {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t byte = opcode & 0x0F00u;
+    uint8_t byte = opcode & 0x00FFu;
 
     registers[Vx] = byte;
 }
@@ -193,7 +186,7 @@ void Chip8::OPC_6xkk()
 void Chip8::OPC_7xkk()
 {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t byte = opcode & 0x0F00u;
+    uint8_t byte = opcode & 0x00FFu;
 
     registers[Vx] += byte;
 }
@@ -327,7 +320,7 @@ void Chip8::OPC_Bnnn()
 void Chip8::OPC_Cxkk()
 {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t byte = opcode & 0x0F00u;
+    uint8_t byte = opcode & 0x00FFu;
 
     // Set Vx to random byte: TODO
     //registers[Vx] = randByte & byte;
@@ -339,8 +332,10 @@ void Chip8::OPC_Dxyn()
     uint8_t Vy = (opcode & 0x00F0u) >> 4u;
     uint8_t height = opcode & 0x000Fu;
 
-    int8_t xPos = registers[Vx] % DISPLAY_WIDTH;
-    uint8_t yPos = registers[Vy] % DISPLAY_HEIGHT;
+    uint8_t xPos = registers[Vx] % SCREEN_WIDTH;
+    uint8_t yPos = registers[Vy] % SCREEN_HEIGHT;
+
+    registers[0xF] = 0;
 
     for(unsigned int row = 0; row < height; ++row)
     {
@@ -349,7 +344,7 @@ void Chip8::OPC_Dxyn()
         for(unsigned int col = 0; col < 8; ++col)
         {
             uint8_t spritePixel = spriteByte & (0x80u >> col);
-            uint32_t* screenPixel = &display[(yPos + row) * DISPLAY_WIDTH + (xPos + col)];
+            uint32_t* screenPixel = &display[(yPos + row) * SCREEN_WIDTH + (xPos + col)];
 
             if (spritePixel)
             {

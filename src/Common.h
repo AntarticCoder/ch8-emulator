@@ -1,0 +1,9 @@
+#pragma once
+
+const int SCREEN_SIZE = 2048;
+const int SCREEN_WIDTH = 64;
+const int SCREEN_HEIGHT = 32;
+
+const int DISPLAY_SCALE = 10;
+const int DISPLAY_WIDTH = SCREEN_WIDTH * DISPLAY_SCALE;
+const int DISPLAY_HEIGHT = SCREEN_HEIGHT * DISPLAY_SCALE;

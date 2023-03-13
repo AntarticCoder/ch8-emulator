@@ -3,6 +3,7 @@
 #include <thread>
 
 #include "Chip8.h"
+#include "Display.h"
 
 int main()
 {
@@ -10,14 +11,19 @@ int main()
 
     Chip8 chip;
     chip.Initialize();
-    chip.LoadRom("/Users/nick/Programming/ch8-emulator/roms/test_opcode.ch8");
+    chip.LoadRom("/Users/nick/Programming/ch8-emulator/roms/IBM.ch8");
 
-    while(true)
+    Display display;
+    display.Initialize();
+
+    while(!display.DisplayPollEvents())
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
-
-        std::cout << "CH8-Emulator emulating cycle\n";
         chip.Cycle();
+
+        display.Update(chip.display);
     }
+
+    display.Destroy();
     return 0;
 }
