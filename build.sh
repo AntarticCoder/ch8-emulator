@@ -3,4 +3,7 @@ make
 
 rm cmake_install.cmake
 rm Makefile
-# rm -r build
+
+if [ -d "build" ]; then
+    rm -r build
+fi
