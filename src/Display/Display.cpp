@@ -1,8 +1,8 @@
-#include "Display.h"
+#include "Display/Display.h"
 
 void Display::Initialize()
 {
-    if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    if(SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         std::cout << "Failed to Initialize SDL video: " << SDL_GetError() << "\n";
         exit(EXIT_FAILURE);
@@ -14,7 +14,6 @@ void Display::Initialize()
     SDL_RenderSetLogicalSize(renderer, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
-    surface = SDL_GetWindowSurface(window);
 }
 
 void Display::Update(const uint32_t (&display)[2048])
@@ -36,24 +35,20 @@ void Display::Destroy()
 {
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
-    SDL_FreeSurface(surface);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-bool Display::DisplayPollEvents()
+bool Display::ShouldWindowClose()
 {
     SDL_Event event;
 
 	while (SDL_PollEvent(&event))
 	{
-		switch (event.type)
-		{
-			case SDL_QUIT:
-			{
-				return true;
-			} 
-        }
+		if(event.type == SDL_QUIT)
+        {
+            return true;
+        } 
     }
     return false;
 }

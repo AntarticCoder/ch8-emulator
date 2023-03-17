@@ -13,10 +13,9 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
-	SDL_Surface* surface;
 public:
 	void Initialize();
 	void Update(const uint32_t (&display)[2048]);
 	void Destroy();
-	bool DisplayPollEvents();
+	bool ShouldWindowClose();
 };
