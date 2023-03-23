@@ -10,12 +10,12 @@
 class Display
 {
 private:
-	SDL_Window* window;
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
 public:
+	SDL_Window* window;
+
 	void Initialize();
 	void Update(const uint32_t (&display)[2048]);
 	void Destroy();
-	bool ShouldWindowClose();
 };
