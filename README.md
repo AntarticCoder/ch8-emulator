@@ -13,8 +13,16 @@ Chip 8 was a virtual interpreter that was developed in the mid 1970's by Joseph 
 - [X] Implement all 34 opcodes
 - [X] Draw graphics to an SDL window
 - [ ] Implement Sound
+- [ ] Implement keyboard inputs
 - [ ] Add CLI interface to load roms and customize the settings
-- [ ] Add visual debugger to view registers, memory, and debug both the emulator and rom
+- [X] Add visual debugger to view registers, memory, and debug both the emulator and rom
+- [ ] Dissasemble source code of the rom and display it in the debugger
+- [ ] Fix static paths that are littered throughtout the code
+
+## Bugs
+
+- [X] Display and Debugger cannot poll events at the same time, because one or the other processes all the events before the other
+
 
 ## Credits
 

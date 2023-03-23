@@ -38,17 +38,3 @@ void Display::Destroy()
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
-
-bool Display::ShouldWindowClose()
-{
-    SDL_Event event;
-
-	while (SDL_PollEvent(&event))
-	{
-		if(event.type == SDL_QUIT)
-        {
-            return true;
-        } 
-    }
-    return false;
-}
