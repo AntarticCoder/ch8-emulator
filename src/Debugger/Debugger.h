@@ -4,17 +4,7 @@
 #include <imgui/backends/imgui_impl_sdl2.h>
 #include <imgui/backends/imgui_impl_sdlrenderer.h>
 
-struct DebugInfo
-{
-	uint8_t registers[16];
-	uint16_t indexRegister;
-	uint16_t pc;
-
-	uint8_t delayTimer;
-	uint8_t soundTimer;
-
-	uint16_t opcode;
-};
+#include <Chip8/Chip8.h>
 
 class Debugger
 {
@@ -28,6 +18,6 @@ public:
      SDL_Window* window;
 
     void Initialize();
-    void Update(DebugInfo info);
+    void Update(Chip8 chip);
     void Destroy();
 };

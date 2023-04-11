@@ -37,32 +37,32 @@ void Debugger::Initialize()
     ImGui_ImplSDLRenderer_Init(renderer);
 }
 
-void Debugger::Update(DebugInfo info)
+void Debugger::Update(Chip8 chip)
 {
     StartFrame();
 
     ImGui::Begin("Registers");
-    ImGui::Text("V0: %x", info.registers[0]);
-    ImGui::Text("V1: %x", info.registers[1]);
-    ImGui::Text("V2: %x", info.registers[2]);
-    ImGui::Text("V3: %x", info.registers[3]);
-    ImGui::Text("V4: %x", info.registers[4]);
-    ImGui::Text("V5: %x", info.registers[5]);
-    ImGui::Text("V6: %x", info.registers[6]);
-    ImGui::Text("V7: %x", info.registers[7]);
-    ImGui::Text("V8: %x", info.registers[8]);
-    ImGui::Text("V9: %x", info.registers[9]);
-    ImGui::Text("VA: %x", info.registers[10]);
-    ImGui::Text("VB: %x", info.registers[11]);
-    ImGui::Text("VC: %x", info.registers[12]);
-    ImGui::Text("VD: %x", info.registers[13]);
-    ImGui::Text("VE: %x", info.registers[14]);
-    ImGui::Text("VF: %x", info.registers[15]);
+    ImGui::Text("V0: %X", chip.registers[0]);
+    ImGui::Text("V1: %X", chip.registers[1]);
+    ImGui::Text("V2: %X", chip.registers[2]);
+    ImGui::Text("V3: %X", chip.registers[3]);
+    ImGui::Text("V4: %X", chip.registers[4]);
+    ImGui::Text("V5: %X", chip.registers[5]);
+    ImGui::Text("V6: %X", chip.registers[6]);
+    ImGui::Text("V7: %X", chip.registers[7]);
+    ImGui::Text("V8: %X", chip.registers[8]);
+    ImGui::Text("V9: %X", chip.registers[9]);
+    ImGui::Text("VA: %X", chip.registers[10]);
+    ImGui::Text("VB: %X", chip.registers[11]);
+    ImGui::Text("VC: %X", chip.registers[12]);
+    ImGui::Text("VD: %X", chip.registers[13]);
+    ImGui::Text("VE: %X", chip.registers[14]);
+    ImGui::Text("VF: %X", chip.registers[15]);
     ImGui::End();
 
     ImGui::Begin("Timers");
-    ImGui::Text("General Timer: %i", info.delayTimer);
-    ImGui::Text("Sound Timer: %i", info.soundTimer);
+    ImGui::Text("General Timer: %i", chip.delayTimer);
+    ImGui::Text("Sound Timer: %i", chip.soundTimer);
     ImGui::End();
 
     EndFrame();

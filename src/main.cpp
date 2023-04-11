@@ -1,29 +1,32 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <sstream>
 
 #include "Chip8/Chip8.h"
 #include "Display/Display.h"
 #include "Debugger/Debugger.h"
 
-void UpdateDebugger(Chip8 chip, DebugInfo info)
+int main(int argc, char* argv[])
 {
-    for(int i = 0; i < 16; i++) { info.registers[i] = chip.registers[i]; }
-}
+    std::cout << '\n';
 
-int main()
-{
+    if(argc == 1) { std::cout << "Chip 8 ROM not specified, please enter rom path as a full path and not relative\n\n"; return 0; }
+    if(argc >= 3) { std::cout << "Too many arguements passed in, please pass in the full path of the rom by itself\n\n"; return 0; }
+
+    std::stringstream romPath;
+    romPath << argv[1];
+
     std::cout << "CH8-Emulator starting up\n";
 
     Chip8 chip;
     chip.Initialize();
-    chip.LoadRom("/Users/nick/Programming/ch8-emulator/roms/IBM.ch8");
+    chip.LoadRom(romPath.str());
 
     Display display;
     display.Initialize();
 
     Debugger debug;
-    DebugInfo info;
     debug.Initialize();
 
     bool quit = false;
@@ -33,7 +36,7 @@ int main()
         chip.Cycle();
 
         display.Update(chip.display);
-        debug.Update(info);
+        debug.Update(chip);
 
         SDL_Event event;
         while(SDL_PollEvent(&event) > 0)
