@@ -42,3 +42,7 @@ Chip 8 was a virtual interpreter that was developed in the mid 1970's by Joseph 
 * [Wikipedia](https://en.wikipedia.org/wiki/CHIP-8)
 * [Cowgod's Chip-8 technical reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 * [Columbia University's Chip-8 Design Specification](http://www.cs.columbia.edu/~sedwards/classes/2016/4840-spring/designs/Chip8.pdf)
+
+## NOTE
+
+I've stopped working on this project and may return to in the future, however I feel feature creep is comming in and so I will stop working on this project. Thank you for visiting, feel free to use this code however you want.
