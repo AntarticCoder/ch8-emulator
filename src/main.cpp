@@ -6,6 +6,7 @@
 #include "Chip8/Chip8.h"
 #include "Display/Display.h"
 #include "Debugger/Debugger.h"
+#include "Keyboard/Keyboard.h"
 
 int main(int argc, char* argv[])
 {
@@ -23,11 +24,11 @@ int main(int argc, char* argv[])
     chip.Initialize();
     chip.LoadRom(romPath.str());
 
-    Display display;
-    display.Initialize();
-
     Debugger debug;
     debug.Initialize();
+
+    Display display;
+    display.Initialize();
 
     bool quit = false;
     while(!quit)
@@ -46,6 +47,9 @@ int main(int argc, char* argv[])
                 return 0;
             } 
             if(event.window.windowID == SDL_GetWindowID(debug.window)) { ImGui_ImplSDL2_ProcessEvent(&event); }
+
+            if(event.type == SDL_KEYDOWN) { std::cout << "Key Down\n"; Keyboard::ProcessKeyDown(chip, event.key.keysym.sym); }
+            if(event.type == SDL_KEYUP) { std::cout << "Key Up\n"; Keyboard::ProcessKeyUp(chip, event.key.keysym.sym); }
         }
     }
 
