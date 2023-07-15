@@ -2,27 +2,54 @@
 
 ## Overview
 
-Chip 8 was a virtual interpreter that was developed in the mid 1970's by Joseph Weisbecker and was used to be able to run games on all different types of computers. Chip 8 can run a variety of games like 'Pong', 'Space Invaders', and many more. Today, Chip 8 is used as a learning excersize to begin the journey of emulation development, and is a great way to start with low level programming.
+Chip 8 was a virtual interpreter that was developed in the mid 1970's by Joseph Weisbecker and was used to be able to run games on all different types of computers. Chip 8 can run a variety of games like 'Pong', 'Space Invaders', and many more. Today, Chip 8 is used as a learning exercize to begin the journey of emulation development, and is a great way to start with low level programming.
 
-## Screenshots
+## How to Build?
 
-![Alt text](/images/IBM_Chip_8_Screenshot.png?raw=true "IBM Logo")
+To build this project, you will need the following
 
-## TODO
+* The CMake build system
+* A C++ compiler of your choice 
+* An open terminal
+
+To compile, simply run the included shell script
+
+```bash
+sh build.sh
+```
+
+Note: Make sure that you have pulled the git submodules with:
+
+```bash
+git submodule init
+git submodule update
+```
+
+## How to Run?
+
+To run, simply run:
+
+```bash
+./bin/ch8-emulator {ROM_PATH}
+```
+
+Replace rom path with the path to your rom, which can be relative or a fixed path
+
+## To-Do
 
 - [X] Implement all 34 opcodes
 - [X] Draw graphics to an SDL window
 - [ ] Implement Sound
 - [ ] Implement keyboard inputs
-- [ ] Add CLI interface to load roms and customize the settings
+- [X] Add CLI interface to load roms and customize the settings
 - [X] Add visual debugger to view registers, memory, and debug both the emulator and rom
-- [ ] Dissasemble source code of the rom and display it in the debugger
-- [ ] Fix static paths that are littered throughtout the code
-
 ## Bugs
 
 - [X] Display and Debugger cannot poll events at the same time, because one or the other processes all the events before the other
 
+## Screenshots
+
+![Alt text](/images/IBM_Chip_8_Screenshot.png?raw=true "IBM Logo")
 
 ## Credits
 
@@ -42,7 +69,3 @@ Chip 8 was a virtual interpreter that was developed in the mid 1970's by Joseph 
 * [Wikipedia](https://en.wikipedia.org/wiki/CHIP-8)
 * [Cowgod's Chip-8 technical reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 * [Columbia University's Chip-8 Design Specification](http://www.cs.columbia.edu/~sedwards/classes/2016/4840-spring/designs/Chip8.pdf)
-
-## NOTE
-
-I've stopped working on this project and may return to in the future, however I feel feature creep is comming in and so I will stop working on this project. Thank you for visiting, feel free to use this code however you want.

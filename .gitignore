@@ -3,6 +3,7 @@
 *.o
 *.d
 *.DS_Store
+*.ini
 
 /bin
 /build
